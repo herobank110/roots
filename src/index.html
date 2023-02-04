@@ -8,7 +8,7 @@
     <title>RootGame</title>
     <style>
         .dummy {
-            color: #211b04;
+            color: #489f25;
         }
     </style>
 </head>
@@ -52,7 +52,7 @@
             ctx.lineTo(w * .505, h * 0.39)
             ctx.lineTo(w * .499, h * 0.36)
             ctx.strokeStyle = "#211b04";
-            ctx.lineWidth = 10;
+            ctx.lineWidth = 15;
             ctx.stroke();
 
             // branch
@@ -61,6 +61,18 @@
             ctx.lineWidth = 4;
             ctx.stroke();
 
+            // stem
+            ctx.moveTo(w*.541, h*.386)
+            ctx.lineTo(w*.567, h*.438)
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // leaf
+            let leaf = new Path2D();
+            leaf.moveTo(w*0.555, h*0.401);
+            leaf.ellipse(w*.559, h*.427, 7, 17, -0.4, 0, Math.PI);
+            ctx.fillStyle = "#489f25";
+            ctx.fill(leaf);
         }
 
         drawShoot()
