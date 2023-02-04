@@ -8,7 +8,7 @@
     <title>RootGame</title>
     <style>
         .dummy {
-            color: #666022;
+            color: #211b04;
         }
     </style>
 </head>
@@ -20,26 +20,50 @@
         let { width: w, height: h } = canvas;
         let ctx = canvas.getContext("2d")
 
-        function drawSeedling() {
-            // ctx.moveTo(w / 2- 10, h / 2);
-
+        function drawBg() {
+            // sky
             ctx.fillStyle = "#3eb2ec";
             ctx.fillRect(0, 0, w, h);
 
+            // soil surface
             ctx.fillStyle = "#573707";
-            ctx.fillRect(0, h/2, w, h);
+            ctx.fillRect(0, h / 2, w, h);
 
+            // soil lower
             ctx.fillStyle = "#2f1f07";
-            ctx.fillRect(0, h/2 + 10, w, h);
+            ctx.fillRect(0, h / 2 + 10, w, h);
+        }
+
+        function drawSeedling() {
+            drawBg();
 
             ctx.ellipse(w / 2, h / 2, 15, 13, 0, Math.PI, 0)
             ctx.ellipse(w / 2, h / 2, 15, 25, Math.PI, Math.PI, 0)
             ctx.fillStyle = "#666022"
             ctx.fill();
-            // ctx.lineTo(w / 2 + 10, h/2)
-            // ctx.stroke();
         }
-        drawSeedling()
+
+        function drawShoot() {
+            drawBg();
+
+            // stalk
+            ctx.moveTo(w * .5 + 0, h * 0.5 + 3);
+            ctx.lineTo(w * .506, h * 0.44)
+            ctx.lineTo(w * .505, h * 0.39)
+            ctx.lineTo(w * .499, h * 0.36)
+            ctx.strokeStyle = "#211b04";
+            ctx.lineWidth = 10;
+            ctx.stroke();
+
+            // branch
+            ctx.moveTo(w*.5, h*.4)
+            ctx.lineTo(w*.567, h*.379)
+            ctx.lineWidth = 4;
+            ctx.stroke();
+
+        }
+
+        drawShoot()
     </script>
 </body>
 
