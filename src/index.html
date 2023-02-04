@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RootGame</title>
+    <style>
+        .dummy {
+            color: #666022;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,9 +22,19 @@
 
         function drawSeedling() {
             // ctx.moveTo(w / 2- 10, h / 2);
-            ctx.ellipse(w/2, h/2, 15, 13, 0, Math.PI, 0)
-            ctx.ellipse(w/2, h/2, 15, 25, Math.PI, Math.PI, 0)
-            ctx.fillStyle = "#4e2a24"
+
+            ctx.fillStyle = "#3eb2ec";
+            ctx.fillRect(0, 0, w, h);
+
+            ctx.fillStyle = "#573707";
+            ctx.fillRect(0, h/2, w, h);
+
+            ctx.fillStyle = "#2f1f07";
+            ctx.fillRect(0, h/2 + 10, w, h);
+
+            ctx.ellipse(w / 2, h / 2, 15, 13, 0, Math.PI, 0)
+            ctx.ellipse(w / 2, h / 2, 15, 25, Math.PI, Math.PI, 0)
+            ctx.fillStyle = "#666022"
             ctx.fill();
             // ctx.lineTo(w / 2 + 10, h/2)
             // ctx.stroke();
