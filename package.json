@@ -2,9 +2,9 @@
   "name": "rootgame",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "dev": "parcel src/index.html --open"
+    "dev": "parcel src/index.html --open --dist-dir build-debug",
+    "build": "parcel build src/index.html --dist-dir build-release"
   },
   "keywords": [],
   "author": "",
