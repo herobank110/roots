@@ -3,80 +3,85 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RootGame</title>
-    <style>
-        .dummy {
-            color: #489f25;
+    <title>David Kanekanian</title>
+    <script src="https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js"></script>
+    <link rel="prefetch" as="image" href="flipbook/flipbook_1001.png" />
+    <link rel="prefetch" as="image" href="flipbook/flipbook_1002.png" />
+    <link rel="prefetch" as="image" href="flipbook/flipbook_1003.png" />
+    <link rel="prefetch" as="image" href="flipbook/flipbook_1004.png" />
+    <link rel="prefetch" as="image" href="flipbook/flipbook_1005.png" />
+    <link rel="prefetch" as="image" href="flipbook/flipbook_1006.png" />
+    <link rel="prefetch" as="image" href="flipbook/flipbook_1007.png" />
+    <link rel="prefetch" as="image" href="flipbook/flipbook_1008.png" />
+
+    <link rel="stylesheet" href="style.scss" />
+    <script src="velocityScroll.ts"></script>
+    <script>
+        window.onload = () => {
+            const imgs = [...document.querySelectorAll(".frameImg")];
+            document.body.style.height = `calc(${imgs.length} * 100lvh)`;
+            const size = imgs[0].clientHeight;
+            const keyframes = [
+                ...imgs.flatMap((_, i) =>
+                    i == 0
+                        ? Array(6).fill('0px')
+                        : [
+                            `-${(i - 1) * size}px`,
+                            `-${(i - 1) * size}px`,
+                            `-${(i - 1) * size}px`,
+                            `-${Math.abs((i - 1) * size - 20)}px`,
+                            `-${i * size - 10}px`,
+                            `-${i * size}px`
+                        ]),
+            ].reverse();
+            document.querySelector('.frameReel').animate(
+                { top: keyframes },
+                {
+                    timeline: new ViewTimeline({ subject: document.body, orientation: 'block' }),
+                    // timeRange: 'contain 25% 75%',
+                    timeRange: 'contain',
+                    fill: 'both'
+                }
+            )
+
+            function scrollLoop() {
+                if (window.scrollY / window.innerHeight > imgs.length - 1) {
+                    const SKIP_TO_FRAME = 3;
+                    window.scrollTo(0, window.innerHeight * SKIP_TO_FRAME);
+                }
+                requestAnimationFrame(scrollLoop)
+            }
+
+            requestAnimationFrame(scrollLoop)
         }
-    </style>
+
+    </script>
 </head>
 
 <body>
-    <canvas width="400" height="300" style="border: 1px solid black"></canvas>
-    <script>
-        let canvas = document.querySelector("canvas");
-        let { width: w, height: h } = canvas;
-        let ctx = canvas.getContext("2d")
+    <div class="flipbookRoot">
+        <div class="flipbookBorder">
+            <div class="frameReel">
+                <div class="frameImg" style="background-image:url('frames/210_0070.png')"></div>
+                <div class="frameImg" style="background-image:url('frames/210_0060.png')"></div>
+                <div class="frameImg" style="background-image:url('frames/210_0050.png')"></div>
+                <div class="frameImg" style="background-image:url('frames/210_0040.png')"></div>
+                <div class="frameImg" style="background-image:url('frames/210_0030.png')"></div>
+                <div class="frameImg" style="background-image:url('frames/210_0020.png')"></div>
+                <div class="frameImg" style="background-image:url('frames/210_0010.png')"></div>
+                <div class="frameImg" style="background-image:url('frames/114_0020.png')"></div>
+                <div class="frameImg" style="background-image:url('frames/114_0010.png')"></div>
+                <div class="frameImg" style="background-image:url('frames/112_0030.png')"></div>
+                <div class="frameImg" style="background-image:url('frames/112_0020.png')"></div>
+                <div class="frameImg" style="background-image:url('frames/112_0010.png')"></div>
+                <div class="frameImg" style="background-image:url('frames/010_0030.png')"></div>
+                <div class="frameImg" style="background-image:url('frames/010_0020.png')"></div>
+                <div class="frameImg" style="background-image:url('frames/010_0010.png')"></div>
+            </div>
+        </div>
+    </div>
 
-        function drawBg() {
-            // sky
-            ctx.fillStyle = "#3eb2ec";
-            ctx.fillRect(0, 0, w, h);
-
-            // soil surface
-            ctx.fillStyle = "#573707";
-            ctx.fillRect(0, h / 2, w, h);
-
-            // soil lower
-            ctx.fillStyle = "#2f1f07";
-            ctx.fillRect(0, h / 2 + 10, w, h);
-        }
-
-        function drawSeedling() {
-            drawBg();
-
-            ctx.ellipse(w / 2, h / 2, 15, 13, 0, Math.PI, 0)
-            ctx.ellipse(w / 2, h / 2, 15, 25, Math.PI, Math.PI, 0)
-            ctx.fillStyle = "#666022"
-            ctx.fill();
-        }
-
-        function drawShoot() {
-            drawBg();
-
-            // stalk
-            ctx.moveTo(w * .5 + 0, h * 0.5 + 3);
-            ctx.lineTo(w * .506, h * 0.44)
-            ctx.lineTo(w * .505, h * 0.39)
-            ctx.lineTo(w * .499, h * 0.36)
-            ctx.strokeStyle = "#211b04";
-            ctx.lineWidth = 15;
-            ctx.stroke();
-
-            // branch
-            ctx.moveTo(w*.5, h*.4)
-            ctx.lineTo(w*.567, h*.379)
-            ctx.lineWidth = 4;
-            ctx.stroke();
-
-            // stem
-            ctx.moveTo(w*.541, h*.386)
-            ctx.lineTo(w*.567, h*.438)
-            ctx.lineWidth = 2;
-            ctx.stroke();
-
-            // leaf
-            let leaf = new Path2D();
-            leaf.moveTo(w*0.555, h*0.401);
-            leaf.ellipse(w*.559, h*.427, 7, 17, -0.4, 0, Math.PI);
-            ctx.fillStyle = "#489f25";
-            ctx.fill(leaf);
-        }
-
-        drawShoot()
-    </script>
 </body>
 
 </html>
